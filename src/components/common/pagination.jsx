@@ -1,7 +1,25 @@
 import React, { Component, useLayoutEffect } from "react";
-import { getGenres } from "../../services/fakeGenreService";
-import { getMovies } from "../../services/fakeMovieService";
+import _ from "lodash";
 
-const Pagination = () => {};
+const Pagination = (props) => {
+  const { itemsCount, pageSize } = props;
+  let pagesCount = Math.ceil(itemsCount / pageSize);
+  if (pagesCount === 1) return null;
+  const pages = _.range(1, pagesCount + 1);
+
+  return (
+    <nav>
+      <ul className="pagination">
+        {pages.map((page) => {
+          return (
+            <li key={page} className="page-item">
+              <a className="page-link">{page}</a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  );
+};
 
 export default Pagination;
