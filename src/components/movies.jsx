@@ -1,15 +1,30 @@
-import { toBeEnabled } from "@testing-library/jest-dom/dist/matchers";
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
+import LikeBtn from "./common/likeBtn";
+import Pagination from "./common/pagination";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
+    pageSize: 4,
   };
 
   handleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies });
+  };
+
+  handleLike = (movie) => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movies[index] };
+    movies[index].liked = !movies[index].liked;
+    movies[index].liked ? movies[index].likes++ : movies[index].likes--;
+    this.setState({ movies });
+  };
+
+  handlePageChange = () => {
+    console.log("Page changed");
   };
 
   render() {
@@ -38,6 +53,13 @@ class Movies extends Component {
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
                 <td>
+                  <LikeBtn
+                    liked={movie.liked}
+                    likes={movie.likes}
+                    onClick={() => this.handleLike(movie)}
+                  />
+                </td>
+                <td>
                   <button
                     onClick={() => this.handleDelete(movie)}
                     className="btn btn-danger btn-sm"
@@ -49,6 +71,11 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          itemsCount={count}
+          pageSize={this.state.pageSize}
+          onPageChange={this.handlePageChange}
+        />
       </React.Fragment>
     );
   }
