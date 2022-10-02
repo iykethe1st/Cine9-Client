@@ -52,6 +52,10 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
+  handleSort = (path) => {
+    console.log(path);
+  };
+
   render() {
     const { pageSize, currentPage } = this.state;
     const { length: count } = this.state.movies;
@@ -79,6 +83,7 @@ class Movies extends Component {
             movies={movies}
             onDelete={this.handleDelete}
             onLike={this.handleLike}
+            onSort={this.handleSort}
           />
 
           <Pagination
