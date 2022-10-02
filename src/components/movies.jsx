@@ -5,7 +5,7 @@ import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/listGroup";
 import { getGenres } from "../services/fakeGenreService";
-import { get } from "lodash";
+import _ from "lodash";
 
 class Movies extends Component {
   state = {
@@ -14,6 +14,7 @@ class Movies extends Component {
     pageSize: 4,
     currentPage: 1,
     selectedGenre: null,
+    sortColumn: { path: "title", order: "asc" },
   };
 
   componentDidMount() {
@@ -53,16 +54,26 @@ class Movies extends Component {
   };
 
   handleSort = (path) => {
-    console.log(path);
+    const sortColumn = { ...this.state.sortColumn };
+    if (sortColumn.path === path)
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    this.setState({ sortColumn });
   };
 
   render() {
-    const { pageSize, currentPage } = this.state;
+    const { pageSize, currentPage, movies, selectedGenre, sortColumn } =
+      this.state;
     const { length: count } = this.state.movies;
 
     if (count === 0) return <p>There are no movies in the database</p>;
 
-    const movies = paginate(this.state.movies, currentPage, pageSize); //returns a new array of movies
+    const sorted = _.orderBy(movies, [sortColumn.path], [sortColumn.order]);
+
+    const paginatedMovies = paginate(sorted, currentPage, pageSize); //returns a new array of movies
 
     return (
       <div className="row">
@@ -70,8 +81,8 @@ class Movies extends Component {
           <ListGroup
             genres={this.state.genres}
             onGenreSwitch={this.handleGenreSwitch}
-            movies={this.state.movies}
-            selectedGenre={this.state.selectedGenre}
+            movies={movies}
+            selectedGenre={selectedGenre}
             onResetGenre={this.handleResetGenre}
           />
         </div>
@@ -80,7 +91,7 @@ class Movies extends Component {
           <p>Showing {count} movies in the database.</p>
 
           <MoviesTable
-            movies={movies}
+            movies={paginatedMovies}
             onDelete={this.handleDelete}
             onLike={this.handleLike}
             onSort={this.handleSort}
