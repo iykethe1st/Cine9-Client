@@ -53,27 +53,23 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handleSort = (path) => {
-    const sortColumn = { ...this.state.sortColumn };
-    if (sortColumn.path === path)
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
+  handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
 
   render() {
-    const { pageSize, currentPage, movies, selectedGenre, sortColumn } =
-      this.state;
+    const { pageSize, currentPage, sortColumn } = this.state;
     const { length: count } = this.state.movies;
 
     if (count === 0) return <p>There are no movies in the database</p>;
 
-    const sorted = _.orderBy(movies, [sortColumn.path], [sortColumn.order]);
+    const sorted = _.orderBy(
+      this.state.movies,
+      [sortColumn.path],
+      [sortColumn.order]
+    );
 
-    const paginatedMovies = paginate(sorted, currentPage, pageSize); //returns a new array of movies
+    const movies = paginate(sorted, currentPage, pageSize); //returns a new array of movies
 
     return (
       <div className="row">
@@ -81,8 +77,8 @@ class Movies extends Component {
           <ListGroup
             genres={this.state.genres}
             onGenreSwitch={this.handleGenreSwitch}
-            movies={movies}
-            selectedGenre={selectedGenre}
+            movies={this.state.movies}
+            selectedGenre={this.state.selectedGenre}
             onResetGenre={this.handleResetGenre}
           />
         </div>
@@ -91,7 +87,8 @@ class Movies extends Component {
           <p>Showing {count} movies in the database.</p>
 
           <MoviesTable
-            movies={paginatedMovies}
+            movies={movies}
+            sortColumn={sortColumn}
             onDelete={this.handleDelete}
             onLike={this.handleLike}
             onSort={this.handleSort}
