@@ -13,7 +13,7 @@ const ListGroup = (props) => {
 
   return (
     <ul className="list-group">
-      <li className="list-group-item" onClick={() => onResetGenre()}>
+      <li className="clickable list-group-item" onClick={() => onResetGenre()}>
         All Genres
       </li>
 
@@ -22,8 +22,8 @@ const ListGroup = (props) => {
           key={genre[valueProperty]}
           className={
             genre === selectedGenre
-              ? "list-group-item active"
-              : "list-group-item"
+              ? "clickable list-group-item active"
+              : "clickable list-group-item"
           }
           onClick={() => onGenreSwitch(genre)}
         >
