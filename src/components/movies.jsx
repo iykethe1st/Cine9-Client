@@ -47,6 +47,11 @@ class Movies extends Component {
     this.setState({ selectedGenre: genre });
   };
 
+  handleResetGenre = () => {
+    const movies = (this.state.movies = getMovies());
+    this.setState({ movies });
+  };
+
   render() {
     const { pageSize, currentPage } = this.state;
     const { length: count } = this.state.movies;
@@ -63,6 +68,7 @@ class Movies extends Component {
             onGenreSwitch={this.handleGenreSwitch}
             movies={this.state.movies}
             selectedGenre={this.state.selectedGenre}
+            onResetGenre={this.handleResetGenre}
           />
         </div>
         <div className="col">

@@ -2,12 +2,18 @@ import React, { Component } from "react";
 import { getGenres } from "../../services/fakeGenreService";
 
 const ListGroup = (props) => {
-  const { onGenreSwitch, genres, textProperty, valueProperty, selectedGenre } =
-    props;
+  const {
+    onGenreSwitch,
+    onResetGenre,
+    genres,
+    textProperty,
+    valueProperty,
+    selectedGenre,
+  } = props;
 
   return (
     <ul className="list-group">
-      <li className="list-group-item" onClick={() => onGenreSwitch()}>
+      <li className="list-group-item" onClick={() => onResetGenre()}>
         All Genres
       </li>
 
