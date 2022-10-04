@@ -31,6 +31,7 @@ class TableHeader extends Component {
               onClick={() => this.raiseSort(column.path)}
             >
               {column.label}
+              &nbsp;
               {this.renderSortIcon(column)}
             </th>
           ))}

@@ -57,11 +57,8 @@ class Movies extends Component {
     this.setState({ sortColumn });
   };
 
-  render() {
+  getPageData = () => {
     const { pageSize, currentPage, sortColumn } = this.state;
-    const { length: count } = this.state.movies;
-
-    if (count === 0) return <p>There are no movies in the database</p>;
 
     const sorted = _.orderBy(
       this.state.movies,
@@ -70,7 +67,16 @@ class Movies extends Component {
     );
 
     const movies = paginate(sorted, currentPage, pageSize); //returns a new array of movies
+    return { movies };
+  };
 
+  render() {
+    const { pageSize, currentPage, sortColumn } = this.state;
+    const { length: count } = this.state.movies;
+
+    if (count === 0) return <p>There are no movies in the database</p>;
+
+    const { movies } = this.getPageData();
     return (
       <div className="row">
         <div className="col-2">
