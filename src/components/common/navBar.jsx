@@ -1,27 +1,34 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 class NavBar extends Component {
   navItems = [
-    { id: 0, label: "Movies", path: "/movies" },
-    { id: 1, label: "Customers", path: "/customers" },
-    { id: 2, label: "Rentals", path: "/rentals" },
+    { id: 0, label: "Movies", path: "../movies" },
+    { id: 1, label: "Customers", path: "../customers" },
+    { id: 2, label: "Rentals", path: "../rentals" },
   ];
-
-  handleNavigation = () => {};
 
   render() {
     return (
-      <nav className="navbar navbar-expand-lg mb-3 navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <Link className="navbar-brand" to="/">
           VidCity
         </Link>
-        <div key={this.navItems.id} className="navbar-nav">
+
+        <div className="navbar-nav">
           {this.navItems.map((navItem) => {
             return (
-              <Link className="nav-item nav-link" to={navItem.path}>
+              <NavLink
+                key={navItem.id}
+                className={
+                  this.navItems.id === navItem.id
+                    ? "nav-item nav-link active"
+                    : "nav-item nav-link"
+                }
+                to={navItem.path}
+              >
                 {navItem.label}
-              </Link>
+              </NavLink>
             );
           })}
         </div>

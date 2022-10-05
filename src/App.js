@@ -1,14 +1,28 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Movies from "./components/movies";
+import MovieForm from "./components/movieForm";
 import NavBar from "./components/common/navBar";
+import Customers from "./components/customers";
+import Rentals from "./components/rentals";
+import ErrorPage from "./components/common/errorPage";
+import "./App.css";
 
 function App() {
   return (
-    <main className="container">
+    <main className="">
       <NavBar />
-      <Movies />
+
+      <div className="container">
+        <Switch>
+          <Route path="/movies/:id" component={MovieForm}></Route>
+          <Route path="/movies" component={Movies} />
+          <Route path="/customers" component={Customers} />
+          <Route path="/rentals" component={Rentals} />
+          <Route path="/not-found" component={ErrorPage} />
+          <Redirect exact from="/" to="/movies"></Redirect>
+          <Redirect to="/not-found"></Redirect>
+        </Switch>
+      </div>
     </main>
   );
 }
