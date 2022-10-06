@@ -2,20 +2,20 @@ import React, { Component } from "react";
 
 class LoginForm extends Component {
   state = {
-    account: { username: "iykethe1st", password: "" },
+    account: { username: "", password: "" },
   };
 
   handleChange = (e) => {
     const account = { ...this.state.account };
-    account.username = e.currentTarget.value;
+    account[e.currentTarget.name] = e.currentTarget.value;
     this.setState({ account });
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    const username = this.username.current.value;
     console.log("Submitted");
   };
   render() {
+    const { account } = this.state;
     return (
       <div>
         <h1>Login Form</h1>
@@ -24,7 +24,8 @@ class LoginForm extends Component {
             <label htmlFor="username">Username</label>
             <input
               onChange={this.handleChange}
-              value={this.state.account.username}
+              value={account.username}
+              name="username"
               autoFocus
               id="username"
               type="text"
@@ -33,7 +34,14 @@ class LoginForm extends Component {
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input id="password" type="text" className="form-control" />
+            <input
+              value={account.password}
+              onChange={this.handleChange}
+              name="password"
+              id="password"
+              type="text"
+              className="form-control"
+            />
           </div>
           <button className="btn btn-primary">Login</button>
         </form>
