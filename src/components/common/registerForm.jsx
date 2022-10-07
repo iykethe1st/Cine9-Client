@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Joi from "joi-browser";
-import Input from "./input";
 import Form from "./form";
-import { divide } from "lodash";
 
 class RegisterForm extends Form {
   state = {

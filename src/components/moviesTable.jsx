@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LikeBtn from "./common/likeBtn";
-import TableBody from "./common/tableBody";
-import TableHeader from "./common/tableHeader";
+
 import Table from "./common/table";
 import { Link } from "react-router-dom";
 
