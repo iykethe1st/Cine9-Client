@@ -51,8 +51,4 @@ class MoviesTable extends Component {
   }
 }
 
-// const MoviesTable = (props) => {
-
-// };
-
 export default MoviesTable;
