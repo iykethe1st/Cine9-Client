@@ -1,2 +1,2 @@
 # VidCity App 
-# A Freelance Project
+- A Freelance Project
