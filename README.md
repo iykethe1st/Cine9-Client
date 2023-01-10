@@ -1,1 +1,2 @@
-# VidCity Movies App (Freelance Project)
+# VidCity App 
+# A Freelance Project
