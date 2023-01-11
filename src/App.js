@@ -1,4 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Movies from "./components/movies";
 import MovieForm from "./components/movieForm";
 import LoginForm from "./components/common/loginForm";
@@ -15,6 +17,7 @@ function App() {
       <NavBar />
 
       <div className="container">
+        <ToastContainer />
         <Switch>
           {/* <Route path="/movies/new" component={MovieForm}></Route> */}
           <Route path="/register" component={RegisterForm}></Route>
