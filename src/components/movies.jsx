@@ -57,19 +57,13 @@ class Movies extends Component {
     this.setState({ currentPage: page });
   };
 
-  handleGenreSwitch = (genre) => {
-    this.state.movies = getMovies();
-    const movies = this.state.movies.filter(
-      (movie) => movie.genre.name === genre.name
-    );
-    console.log(movies);
-    this.setState({ movies });
+  handleGenreSwitch = async (genre) => {
     this.setState({ selectedGenre: genre, searchQuery: "" });
   };
 
-  handleResetGenre = () => {
-    const movies = (this.state.movies = getMovies());
-    this.setState({ movies });
+  handleResetGenre = async () => {
+    const { data: movies } = await getMovies();
+    this.setState({ movies, selectedGenre: null });
   };
 
   handleSort = (sortColumn) => {
