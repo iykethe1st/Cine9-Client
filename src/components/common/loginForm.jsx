@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Input from "./input";
 import Form from "./form";
 import Joi from "joi-browser";
-import { login } from "../../services/authService";
+import auth from "../../services/authService";
 
 class LoginForm extends Form {
   state = {
@@ -19,7 +19,8 @@ class LoginForm extends Form {
     // console.log("Submitted to server");
     try {
       const { data } = this.state;
-      await login(data.username, data.password);
+      await auth.login(data.username, data.password);
+      window.location = "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
