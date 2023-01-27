@@ -14,6 +14,7 @@ import ErrorPage from "./components/common/errorPage";
 import auth from "./services/authService";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import ProtectedRoute from "./components/common/protectedRoute";
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
@@ -32,7 +33,7 @@ function App() {
           <Route path="/register" component={RegisterForm}></Route>
           <Route path="/login" component={LoginForm}></Route>
           <Route path="/logout" component={Logout}></Route>
-          <Route path="/movies/:id" component={MovieForm}></Route>
+          <ProtectedRoute path="/movies/:id" component={MovieForm} />
           <Route
             path="/movies"
             render={(props) => <Movies {...props} user={currentUser} />}
